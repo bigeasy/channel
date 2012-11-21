@@ -1,0 +1,21 @@
+{ "name": "channel"
+, "description": "Zero dependency URL routers for Node.js and the browser."
+, "author": "Alan Gutierrez"
+, "version": "0.0.1"
+, "keywords": [ "router", "html", "history", "web", "async", "asynchronous" ]
+, "licenses": [
+  { "type": "MIT"
+  , "url": "http://github.com/bigeasy/channel/raw/master/LICENSE"
+  }]
+, "homepage": "https://github.com/bigeasy/channel"
+, "repository":
+  { "type": "git"
+  , "url": "http://github.com/bigeasy/channel.git"
+  }
+, "scripts" : { "test": "proof platform win32 && proof t/*/*.t.js || t/test" }
+, "devDependencies":
+  { "proof": "0.0.15"
+  , "uglify-js": "~1.3"
+  }
+, "dependencies": { }
+}
