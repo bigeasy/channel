@@ -18,7 +18,18 @@
 
   function parse (path) {
     if (typeof path != "string") return path;
-    return new RegExp('^' + regular(path) + '$');
+    var parts = path.split(/\//), i, I, $, match = {}, regex = [];
+    for (i = 0, I = parts.length; i < I; i++) {
+      if ($ = /^:(\w[\w\d]+)$/.exec(parts[i])) {
+        if (!match.params) match.params = [];
+        match.params.push($[1]);
+        regex.push('([^/]+)');
+      } else {
+        regex.push(regular(parts[i]));
+      }
+    }
+    match.regex = new RegExp('^' + regex.join('\\/') + '$');
+    return match;
   }
 
   function Router () {
@@ -27,11 +38,19 @@
 
   Router.prototype.on = function (methods, path, callback) {
     var routes = this._routes, match = parse(path), route, i, I;
-    routes.push(function (method, path) {
-      var i, I, $;
+    routes.push(function (method, path, object) {
+      var i, I, j, J, $;
       for (i = 0, I = methods.length; i < I; i++) {
-        if ((method == method) && ($ = match.exec(path))) {
-          callback.apply(null, $.slice(1));
+        if ((method == method) && ($ = match.regex.exec(path))) {
+          if (match.params) {
+            object.params = {}; 
+            for (j = 0, J = match.params.length; j < J; j++) {
+              object.params[match.params[j]] = $[j + 1]; 
+            }
+          } else {
+            object.params = $.slice(1);
+          }
+          callback.apply(null, slice.call(arguments, 2));
           return true;
         }
       }
@@ -45,7 +64,7 @@
   Router.prototype.route = function (method, path) {
     var routes = this._routes, i, I, match;
     for (i = 0, I = routes.length; i < I; i++) {
-      if (routes[i](method, path)) return true;
+      if (routes[i].apply(null, arguments)) return true;
     }
     return false;
   }
