@@ -1,7 +1,7 @@
 { "name": "channel"
 , "description": "Zero dependency URL routers for Node.js and the browser."
 , "author": "Alan Gutierrez"
-, "version": "0.0.1"
+, "version": "0.0.0"
 , "keywords": [ "router", "html", "history", "web", "async", "asynchronous" ]
 , "licenses": [
   { "type": "MIT"
