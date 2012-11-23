@@ -8,7 +8,9 @@ Changes for each release.
 
 ### Version 0.0.0
 
-Released: *Tue Nov 20 02:59:42 EST 2012*
+Released: *Thu Nov 22 21:08:41 2012 -0500*
 
+ * Match parameterized route. #4.
+ * Match static route. #4.
  * Build in Travis CI. #3.
  * Initial commit of minimal project. #2.
